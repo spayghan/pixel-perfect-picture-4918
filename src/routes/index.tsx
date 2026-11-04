@@ -1,24 +1,51 @@
 import { createFileRoute } from "@tanstack/react-router";
+import AiBackground from "@/components/portfolio/AiBackground";
+import Navbar from "@/components/portfolio/Navbar";
+import Hero from "@/components/portfolio/Hero";
+import About from "@/components/portfolio/About";
+import Skills from "@/components/portfolio/Skills";
+import Projects from "@/components/portfolio/Projects";
+import EducationExperience from "@/components/portfolio/EducationExperience";
+import TerminalSection from "@/components/portfolio/TerminalSection";
+import Contact from "@/components/portfolio/Contact";
+import Footer from "@/components/portfolio/Footer";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
-  component: Index,
+  head: () => ({
+    meta: [
+      { title: "Shashvat Payghan — AI & Data Science Student | Full Stack Developer" },
+      {
+        name: "description",
+        content:
+          "Portfolio of Shashvat Payghan — AI & Data Science student and full-stack developer building intelligent, real-world products with Python, React and modern machine learning.",
+      },
+      { property: "og:title", content: "Shashvat Payghan — AI & Data Science Student | Full Stack Developer" },
+      {
+        property: "og:description",
+        content: "One Mind. One World. Infinite Possibilities. Explore my projects, skills and experience in AI, data science and full-stack development.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
+  component: PortfolioPage,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
+function PortfolioPage() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+    <div className="relative min-h-screen">
+      <AiBackground />
+      <Navbar />
+      <main>
+        <Hero />
+        <About />
+        <Skills />
+        <Projects />
+        <EducationExperience />
+        <TerminalSection />
+        <Contact />
+      </main>
+      <Footer />
     </div>
   );
 }
