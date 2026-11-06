@@ -1,0 +1,327 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Design system — "Neural Dusk"
+ * Deep navy/charcoal base, electric blue primary, violet secondary,
+ * neon green used sparingly as a highlight. Glassmorphism surfaces,
+ * gradient text, soft glows. The site is intentionally dark-only,
+ * so :root carries the dark palette directly.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-electric: var(--electric);
+  --color-violet: var(--violet);
+  --color-neon: var(--neon);
+  --color-cyan: var(--cyan);
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", "Inter", ui-sans-serif, sans-serif;
+  --animate-float-slow: float-slow 16s ease-in-out infinite;
+  --animate-pulse-glow: pulse-glow 5s ease-in-out infinite;
+  --animate-blink: blink 1.1s step-end infinite;
+  --animate-spin-slow: spin 22s linear infinite;
+}
+
+:root {
+  --radius: 0.75rem;
+  --background: oklch(0.13 0.028 265);
+  --foreground: oklch(0.95 0.015 250);
+  --card: oklch(0.17 0.032 265);
+  --card-foreground: oklch(0.95 0.015 250);
+  --popover: oklch(0.17 0.032 265);
+  --popover-foreground: oklch(0.95 0.015 250);
+  --primary: #00ff66;
+  --primary-foreground: oklch(0.13 0.03 265);
+  --secondary: oklch(0.58 0.2 295);
+  --secondary-foreground: oklch(0.95 0.015 250);
+  --muted: oklch(0.22 0.03 264);
+  --muted-foreground: oklch(0.7 0.03 258);
+  --accent: oklch(0.24 0.04 262);
+  --accent-foreground: oklch(0.95 0.015 250);
+  --destructive: oklch(0.62 0.22 25);
+  --destructive-foreground: oklch(0.95 0.015 250);
+  --border: oklch(0.65 0.06 255 / 14%);
+  --input: oklch(0.65 0.06 255 / 18%);
+  --ring: oklch(0.68 0.19 250);
+  --electric: oklch(0.68 0.19 250);
+  --violet: oklch(0.6 0.22 295);
+  --neon: #00ff66;
+  --cyan: #00f3ff;
+}
+
+.dark {
+  --background: oklch(0.13 0.028 265);
+  --foreground: oklch(0.95 0.015 250);
+  --card: oklch(0.17 0.032 265);
+  --card-foreground: oklch(0.95 0.015 250);
+  --popover: oklch(0.17 0.032 265);
+  --popover-foreground: oklch(0.95 0.015 250);
+  --primary: #00ff66;
+  --primary-foreground: oklch(0.13 0.03 265);
+  --secondary: oklch(0.58 0.2 295);
+  --secondary-foreground: oklch(0.95 0.015 250);
+  --muted: oklch(0.22 0.03 264);
+  --muted-foreground: oklch(0.7 0.03 258);
+  --accent: oklch(0.24 0.04 262);
+  --accent-foreground: oklch(0.95 0.015 250);
+  --destructive: oklch(0.62 0.22 25);
+  --destructive-foreground: oklch(0.95 0.015 250);
+  --border: oklch(0.65 0.06 255 / 14%);
+  --input: oklch(0.65 0.06 255 / 18%);
+  --ring: oklch(0.68 0.19 250);
+  --electric: oklch(0.68 0.19 250);
+  --violet: oklch(0.6 0.22 295);
+  --neon: #00ff66;
+  --cyan: #00f3ff;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background: var(--color-electric);
+    color: var(--color-primary-foreground);
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-background);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: color-mix(in oklab, var(--color-electric) 30%, var(--color-muted));
+    border-radius: 8px;
+  }
+}
+
+/* --- Custom utilities ------------------------------------------------------ */
+
+@utility glass {
+  background: color-mix(in oklab, var(--card) 55%, transparent);
+  backdrop-filter: blur(18px) saturate(150%);
+  border: 1px solid var(--border);
+}
+
+@utility glass-strong {
+  background: color-mix(in oklab, var(--card) 80%, transparent);
+  backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid var(--border);
+}
+
+@utility text-gradient {
+  background-image: linear-gradient(
+    100deg,
+    var(--color-electric) 0%,
+    var(--color-violet) 60%,
+    var(--color-neon) 135%
+  );
+  background-clip: text;
+  color: transparent;
+}
+
+@utility bg-grid {
+  background-image:
+    linear-gradient(to right, color-mix(in oklab, var(--color-electric) 8%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklab, var(--color-electric) 8%, transparent) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+@utility glow-ring {
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--color-electric) 25%, transparent),
+    0 0 42px color-mix(in oklab, var(--color-electric) 22%, transparent),
+    0 0 90px color-mix(in oklab, var(--color-violet) 18%, transparent);
+}
+
+@utility glow-soft {
+  box-shadow: 0 8px 40px -12px color-mix(in oklab, var(--color-electric) 45%, transparent);
+}
+
+/* --- Keyframes -------------------------------------------------------------- */
+
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  33% {
+    transform: translate3d(50px, -40px, 0) scale(1.1);
+  }
+  66% {
+    transform: translate3d(-35px, 30px, 0) scale(0.94);
+  }
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+/* --- Cyberpunk Glitch Effect ----------------------------------------------- */
+
+.glitch-text {
+  position: relative;
+  display: inline-block;
+  user-select: text;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0;
+  overflow: hidden;
+}
+
+/* ::before: electric cyan overlay with stepped glitch-shift */
+.glitch-text::before {
+  color: var(--color-cyan, #00f3ff);
+  text-shadow: -1px 0 var(--color-cyan, #00f3ff);
+  z-index: 1;
+  animation: glitch-shift-cyan 4s infinite steps(1);
+}
+
+/* ::after: neon matrix green overlay with shifted timing */
+.glitch-text::after {
+  color: var(--color-primary, #00ff66);
+  text-shadow: 1px 0 var(--color-primary, #00ff66);
+  z-index: 2;
+  animation: glitch-shift-green 4s infinite steps(1);
+}
+
+@keyframes glitch-shift-cyan {
+  0%, 93%, 100% {
+    opacity: 0;
+    transform: translate(0, 0);
+    clip-path: inset(0 0 0 0);
+  }
+  94% {
+    opacity: 0.95;
+    transform: translate(-2px, 1px);
+    clip-path: inset(18% 0 62% 0);
+  }
+  95% {
+    opacity: 0.9;
+    transform: translate(2px, -1px);
+    clip-path: inset(42% 0 35% 0);
+  }
+  96% {
+    opacity: 0.95;
+    transform: translate(-2px, 2px);
+    clip-path: inset(72% 0 12% 0);
+  }
+  97% {
+    opacity: 0.9;
+    transform: translate(1px, -1px);
+    clip-path: inset(12% 0 76% 0);
+  }
+  98% {
+    opacity: 0.95;
+    transform: translate(-1px, 1px);
+    clip-path: inset(54% 0 28% 0);
+  }
+}
+
+@keyframes glitch-shift-green {
+  0%, 93.5%, 100% {
+    opacity: 0;
+    transform: translate(0, 0);
+    clip-path: inset(0 0 0 0);
+  }
+  94.5% {
+    opacity: 0.95;
+    transform: translate(2px, -1px);
+    clip-path: inset(32% 0 48% 0);
+  }
+  95.5% {
+    opacity: 0.9;
+    transform: translate(-2px, 1px);
+    clip-path: inset(62% 0 18% 0);
+  }
+  96.5% {
+    opacity: 0.95;
+    transform: translate(2px, 1px);
+    clip-path: inset(8% 0 82% 0);
+  }
+  97.5% {
+    opacity: 0.9;
+    transform: translate(-1px, -2px);
+    clip-path: inset(78% 0 8% 0);
+  }
+  98.5% {
+    opacity: 0.95;
+    transform: translate(1px, 2px);
+    clip-path: inset(22% 0 64% 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glitch-text::before,
+  .glitch-text::after {
+    animation: none !important;
+    display: none !important;
+    opacity: 0 !important;
+  }
+}

@@ -6,112 +6,84 @@ Designed with a cyber-futuristic dark mode aesthetic featuring neon cyan and mat
 
 ---
 
-## 🏗️ Architecture: Clean Frontend & Backend Distribution
+## 🏗️ Architecture: 2 Main Folders (Frontend & Backend)
 
 ```
 pixel-perfect-picture-4918/
-├── backend/                       # Dedicated Node.js & Express API
-│   ├── config/
-│   │   └── db.js                 # Mongoose MongoDB connection
-│   ├── controllers/
-│   │   └── contactController.js  # Validation, honeypot & submission logic
-│   ├── models/
-│   │   └── Contact.js            # MongoDB Contact schema
-│   ├── routes/
-│   │   └── contactRoutes.js      # Express /api/contact router
-│   ├── server.js                 # Backend entry point (Port 5000)
-│   ├── package.json              # Backend dependencies & scripts
-│   └── .env.example              # Database environment template
+├── frontend/                     # Pure React + Vite Single Page Application
+│   ├── public/                   # Static images, favicon, icons
+│   │   ├── favicon.svg           # <SP/> Monogram favicon
+│   │   └── images/
+│   │       ├── profile.jpg       # Hero profile portrait photo
+│   │       ├── projects/         # Project screenshots / thumbnails
+│   │       └── achievements/     # Winning milestone photos
+│   ├── src/
+│   │   ├── components/portfolio/ # All 13 modular React UI components
+│   │   ├── data/portfolio.ts     # Centralized content, projects, and milestones
+│   │   ├── lib/utils.ts          # Tailwind styling helpers
+│   │   ├── App.tsx               # Main React Application
+│   │   ├── main.tsx              # React DOM entry
+│   │   └── styles.css            # Cyberpunk glitch & theme styling
+│   ├── index.html                # HTML entry point with fonts & meta tags
+│   ├── package.json              # Frontend dependencies & scripts
+│   ├── vite.config.ts            # Vite bundler & API proxy configuration
+│   └── .env.example              # Frontend environment variables template
 │
-├── src/                          # Modern React 19 Frontend
-│   ├── components/
-│   │   └── portfolio/
-│   │       ├── Hero.tsx          # Hero section (portrait on left, bio on right)
-│   │       ├── About.tsx         # About cards
-│   │       ├── Skills.tsx        # Technical arsenal
-│   │       ├── Projects.tsx      # "Things I've Built" cards
-│   │       ├── Milestones.tsx    # "MILESTONES UNLOCKED" competition photos
-│   │       ├── EducationExperience.tsx # Education & MERN learning journey
-│   │       ├── TerminalSection.tsx     # Interactive CLI shell
-│   │       ├── Contact.tsx       # MongoDB contact form ("TRANSMIT MESSAGE")
-│   │       ├── Navbar.tsx        # Navigation header
-│   │       └── Footer.tsx        # Footer with social links
-│   ├── data/
-│   │   └── portfolio.ts          # Centralized data configuration
-│   └── styles.css                # Cyberpunk glitch keyframes & tokens
-│
-├── public/                       # Static public assets
-│   ├── favicon.svg               # Custom <SP/> monogram favicon
-│   └── images/
-│       ├── profile.jpg           # Your home profile photo slot
-│       ├── projects/             # Original project thumbnails
-│       └── achievements/         # Winning milestone photographs
-│
-├── .env.example                  # Root environment variables template
-└── vite.config.ts                # Vite config with /api proxy to port 5000
+└── backend/                      # Node.js + Express + MongoDB API Server
+    ├── config/db.js              # Mongoose MongoDB connection
+    ├── controllers/              # Contact validation, rate limit & storage logic
+    ├── models/Contact.js         # MongoDB Contact schema
+    ├── routes/contactRoutes.js   # Express /api/contact router
+    ├── server.js                 # Express server entry point (Port 5000)
+    ├── package.json              # Backend dependencies & scripts
+    └── .env.example              # Database connection string template
 ```
 
 ---
 
-## 📸 Image Guide: Where to Put Your Images
+## 🚀 How to Deploy on Render
 
-Simply place your own images in the corresponding paths under `public/images/`. No code changes are required:
-
-### 1. Home Profile Photo (Replaces the stock photo)
-- **Path**: `public/images/profile.jpg` (or `.png`)
-- *Tip: A square or portrait photo with a dark/neutral background works best with the surrounding neon aura.*
-
-### 2. "Things I've Built" Project Images
-Place your project screenshots or graphics in `public/images/projects/`:
-- **Project A (AI Legal Metrology)**:
-  `public/images/projects/legal-metrology-inspection.png` (or `.jpg` / `.svg`)
-- **Project B (Employee Onboarding Automation)**:
-  `public/images/projects/employee-onboarding-automation.png` (or `.jpg` / `.svg`)
-- **Project C (AI Inventory & E-Commerce)**:
-  `public/images/projects/inventory-ecommerce-management.png` (or `.jpg` / `.svg`)
-- **Project D (Predictive Maintenance Manufacturing)**:
-  `public/images/projects/predictive-maintenance-manufacturing.png` (or `.jpg` / `.svg`)
-
-### 3. "MILESTONES UNLOCKED" Winning Photographs
-Place your competition and event photographs in `public/images/achievements/`:
-- **AYURVEDA-X Ideathon**: `public/images/achievements/ayurveda-x.jpg`
-- **No-Code Talent Battle**: `public/images/achievements/no-code-talent-battle.jpg`
-- **Sign2Voice ⚡**: `public/images/achievements/sign2voice.jpg`
+### 1. Deploy Backend (Express + MongoDB)
+1. In Render Dashboard, click **New +** → **Web Service**.
+2. Connect your GitHub repository.
+3. Set the following settings:
+   - **Name**: `pixel-perfect-picture-backend` (or your choice)
+   - **Root Directory**: `backend`
+   - **Runtime**: `Node`
+   - **Build Command**: `npm install`
+   - **Start Command**: `node server.js`
+4. Under **Environment Variables**, add:
+   - `MONGODB_URI`: *Your MongoDB Atlas connection string*
+   - `PORT`: `5000`
+   - `NODE_ENV`: `production`
+5. Click **Create Web Service**. Once deployed, copy your backend URL (e.g. `https://pixel-perfect-picture-4918-1.onrender.com`).
 
 ---
 
-## 🚀 Running the Project Locally
-
-### 1. Setup Environment
-Ensure your `.env` is configured with your MongoDB URI:
-```env
-MONGODB_URI=mongodb://localhost:27017/portfolio
-PORT=5000
-```
-
-### 2. Run the Express Backend (Port 5000)
-```bash
-npm run server
-```
-*Or navigate into `backend/` and run:*
-```bash
-cd backend
-npm start
-```
-
-### 3. Run the Frontend (Vite)
-In a second terminal window:
-```bash
-npm run dev
-```
-Open `http://localhost:3000` in your browser. All contact form transmissions will route to your MongoDB database via the `/api/contact` proxy.
+### 2. Deploy Frontend (React SPA)
+1. In Render Dashboard, click **New +** → **Static Site** (100% Free & Fast).
+2. Connect your GitHub repository.
+3. Set the following settings:
+   - **Name**: `shashvat-payghan-portfolio`
+   - **Root Directory**: `frontend`
+   - **Build Command**: `npm install && npm run build`
+   - **Publish Directory**: `dist`
+4. Under **Environment Variables**, add:
+   - `VITE_API_URL`: `https://pixel-perfect-picture-4918-1.onrender.com/api/contact` (your backend URL + `/api/contact`)
+5. Click **Create Static Site**.
 
 ---
 
-## 🔗 Social Links
+## 💻 Local Development
 
-- **GitHub**: [github.com/spayghan](https://github.com/spayghan)
-- **LinkedIn**: [linkedin.com/in/shashvat-payghan-a08a20330](https://www.linkedin.com/in/shashvat-payghan-a08a20330/)
-- **X (Twitter)**: [x.com/Shashvatpayghan](https://x.com/Shashvatpayghan)
-- **YouTube**: [youtube.com/@AIpoweredGeneration](https://www.youtube.com/@AIpoweredGeneration)
-- **Email**: [payghanshashvat@gmail.com](mailto:payghanshashvat@gmail.com)
+### Run Both Together:
+```bash
+# Terminal 1: Run Backend API
+npm run dev:backend
+
+# Terminal 2: Run Frontend React App
+npm run dev:frontend
+```
+
+Frontend will run at: `http://localhost:5173`  
+Backend API will run at: `http://localhost:5000`
