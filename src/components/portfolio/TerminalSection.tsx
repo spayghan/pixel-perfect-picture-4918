@@ -12,7 +12,7 @@ import SectionHeading from "./SectionHeading";
 
 type Line = { type: "input" | "output" | "accent" | "error"; text: string };
 
-const COMMANDS = ["help", "about", "skills", "projects", "education", "contact", "clear"] as const;
+const COMMANDS = ["help", "about", "skills", "projects", "education", "milestones", "contact", "clear"] as const;
 
 function buildOutput(raw: string): Line[] {
   const cmd = raw.trim().toLowerCase();
@@ -28,7 +28,8 @@ function buildOutput(raw: string): Line[] {
               about: "who I am",
               skills: "my technical skills",
               projects: "things I've built",
-              education: "my education & experience",
+              education: "my education & development",
+              milestones: "competitions and honors won",
               contact: "how to reach me",
               help: "list all commands",
             }[c]
@@ -61,15 +62,24 @@ function buildOutput(raw: string): Line[] {
         ]),
         ...experience.flatMap((e) => [
           { type: "accent" as const, text: `> ${e.title} (${e.period})` },
-          { type: "output" as const, text: `  ${e.org}` },
+          { type: "output" as const, text: `  ${e.detail}` },
         ]),
-        { type: "output", text: `Certifications: ${certifications.map((c) => c.name).join(", ")}` },
+      ];
+    case "milestones":
+      return [
+        { type: "accent", text: "> MILESTONES & ACHIEVEMENTS" },
+        { type: "output", text: "  1. AYURVEDA-X Ideathon — Winner (Multimodal AI Platform)" },
+        { type: "output", text: "  2. No-Code Talent Battle — 1st Prize Winner (Onboarding Automation)" },
+        { type: "output", text: "  3. Project Competition — Winner (Sign2Voice ⚡)" },
+        { type: "output", text: `  Certifications: ${certifications.map((c) => c.name).join(", ")}` },
       ];
     case "contact":
       return [
         { type: "output", text: `Email    : ${profile.email}` },
         { type: "output", text: `GitHub   : ${profile.github}` },
         { type: "output", text: `LinkedIn : ${profile.linkedin}` },
+        { type: "output", text: `X        : ${profile.twitter}` },
+        { type: "output", text: `YouTube  : ${profile.youtube}` },
         { type: "accent", text: "I usually reply within 24 hours." },
       ];
     default:

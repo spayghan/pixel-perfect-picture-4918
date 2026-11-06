@@ -42,6 +42,7 @@
   --color-electric: var(--electric);
   --color-violet: var(--violet);
   --color-neon: var(--neon);
+  --color-cyan: var(--cyan);
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Space Grotesk", "Inter", ui-sans-serif, sans-serif;
   --animate-float-slow: float-slow 16s ease-in-out infinite;
@@ -58,7 +59,7 @@
   --card-foreground: oklch(0.95 0.015 250);
   --popover: oklch(0.17 0.032 265);
   --popover-foreground: oklch(0.95 0.015 250);
-  --primary: oklch(0.68 0.19 250);
+  --primary: #00ff66;
   --primary-foreground: oklch(0.13 0.03 265);
   --secondary: oklch(0.58 0.2 295);
   --secondary-foreground: oklch(0.95 0.015 250);
@@ -73,7 +74,8 @@
   --ring: oklch(0.68 0.19 250);
   --electric: oklch(0.68 0.19 250);
   --violet: oklch(0.6 0.22 295);
-  --neon: oklch(0.85 0.22 148);
+  --neon: #00ff66;
+  --cyan: #00f3ff;
 }
 
 .dark {
@@ -83,7 +85,7 @@
   --card-foreground: oklch(0.95 0.015 250);
   --popover: oklch(0.17 0.032 265);
   --popover-foreground: oklch(0.95 0.015 250);
-  --primary: oklch(0.68 0.19 250);
+  --primary: #00ff66;
   --primary-foreground: oklch(0.13 0.03 265);
   --secondary: oklch(0.58 0.2 295);
   --secondary-foreground: oklch(0.95 0.015 250);
@@ -98,7 +100,8 @@
   --ring: oklch(0.68 0.19 250);
   --electric: oklch(0.68 0.19 250);
   --violet: oklch(0.6 0.22 295);
-  --neon: oklch(0.85 0.22 148);
+  --neon: #00ff66;
+  --cyan: #00f3ff;
 }
 
 @layer base {
@@ -209,5 +212,117 @@
   }
   50% {
     opacity: 0;
+  }
+}
+
+/* --- Cyberpunk Glitch Effect ----------------------------------------------- */
+
+.glitch-text {
+  position: relative;
+  display: inline-block;
+  user-select: text;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0;
+  overflow: hidden;
+}
+
+/* ::before: electric cyan overlay with stepped glitch-shift */
+.glitch-text::before {
+  color: var(--color-cyan, #00f3ff);
+  text-shadow: -1px 0 var(--color-cyan, #00f3ff);
+  z-index: 1;
+  animation: glitch-shift-cyan 4s infinite steps(1);
+}
+
+/* ::after: neon matrix green overlay with shifted timing */
+.glitch-text::after {
+  color: var(--color-primary, #00ff66);
+  text-shadow: 1px 0 var(--color-primary, #00ff66);
+  z-index: 2;
+  animation: glitch-shift-green 4s infinite steps(1);
+}
+
+@keyframes glitch-shift-cyan {
+  0%, 93%, 100% {
+    opacity: 0;
+    transform: translate(0, 0);
+    clip-path: inset(0 0 0 0);
+  }
+  94% {
+    opacity: 0.95;
+    transform: translate(-2px, 1px);
+    clip-path: inset(18% 0 62% 0);
+  }
+  95% {
+    opacity: 0.9;
+    transform: translate(2px, -1px);
+    clip-path: inset(42% 0 35% 0);
+  }
+  96% {
+    opacity: 0.95;
+    transform: translate(-2px, 2px);
+    clip-path: inset(72% 0 12% 0);
+  }
+  97% {
+    opacity: 0.9;
+    transform: translate(1px, -1px);
+    clip-path: inset(12% 0 76% 0);
+  }
+  98% {
+    opacity: 0.95;
+    transform: translate(-1px, 1px);
+    clip-path: inset(54% 0 28% 0);
+  }
+}
+
+@keyframes glitch-shift-green {
+  0%, 93.5%, 100% {
+    opacity: 0;
+    transform: translate(0, 0);
+    clip-path: inset(0 0 0 0);
+  }
+  94.5% {
+    opacity: 0.95;
+    transform: translate(2px, -1px);
+    clip-path: inset(32% 0 48% 0);
+  }
+  95.5% {
+    opacity: 0.9;
+    transform: translate(-2px, 1px);
+    clip-path: inset(62% 0 18% 0);
+  }
+  96.5% {
+    opacity: 0.95;
+    transform: translate(2px, 1px);
+    clip-path: inset(8% 0 82% 0);
+  }
+  97.5% {
+    opacity: 0.9;
+    transform: translate(-1px, -2px);
+    clip-path: inset(78% 0 8% 0);
+  }
+  98.5% {
+    opacity: 0.95;
+    transform: translate(1px, 2px);
+    clip-path: inset(22% 0 64% 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glitch-text::before,
+  .glitch-text::after {
+    animation: none !important;
+    display: none !important;
+    opacity: 0 !important;
   }
 }

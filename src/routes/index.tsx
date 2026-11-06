@@ -6,6 +6,7 @@ import About from "@/components/portfolio/About";
 import Skills from "@/components/portfolio/Skills";
 import Projects from "@/components/portfolio/Projects";
 import EducationExperience from "@/components/portfolio/EducationExperience";
+import Milestones from "@/components/portfolio/Milestones";
 import TerminalSection from "@/components/portfolio/TerminalSection";
 import Contact from "@/components/portfolio/Contact";
 import Footer from "@/components/portfolio/Footer";
@@ -42,6 +43,7 @@ function PortfolioPage() {
         <Skills />
         <Projects />
         <EducationExperience />
+        <Milestones />
         <TerminalSection />
         <Contact />
       </main>
